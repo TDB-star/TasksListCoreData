@@ -9,111 +9,73 @@ import UIKit
 
 class TasksTableViewController: UITableViewController {
     
-    let viewModel = ListViewModel()
-    
-    let context = CoreDataManager.shared.context
-    
-    private var models = [List]()
+    private var tasks = [List]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         getAllTasks()
-        tableView.reloadData()
-
-    }
-    fileprivate func updateTableView() {
-        viewModel.fetchData()
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
-        
-        
     }
     
     @IBAction func addButtonTapped(_ sender: UIBarButtonItem) {
         showTaskAlert(with: "Add new task", "", "Save", "Cancel", "Enter your task") { text in
             if !text.isEmpty {
-                self.createTask(name: text)
-                //self.viewModel.saveData(title: text)
-               // self.updateTableView()
+                self.saveTask(task: text)
             }
-            
         }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        models.count
-        //return viewModel.Listarray.count
+        tasks.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TaskCell", for: indexPath)
-        let task = models[indexPath.row]
-        //let task = viewModel.Listarray[indexPath.row]
+        let task = tasks[indexPath.row]
         var content = cell.defaultContentConfiguration()
         content.text = task.title
         cell.contentConfiguration = content
         return cell
     }
     
-
-    
-   
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
-
-  
-   
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        let task = tasks[indexPath.row]
         if editingStyle == .delete {
-            deleteTask(item: models[indexPath.row])
-            tableView.reloadData()
+            tasks.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            CoreDataManager.shared.deleteData(task)
+           
+        }
+    }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let task = tasks[indexPath.row]
+        showTaskAlert(with: "Edit", "Edit your task", "Save", "Cancel", "") { text in
+            CoreDataManager.shared.updateTask(task, newName: text)
+            tableView.reloadRows(at: [indexPath], with: .automatic)
         }
     }
    
 
-    func getAllTasks() {
-        do {
-             models =  try context.fetch(List.fetchRequest())
-            
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
+   private func getAllTasks() {
+        CoreDataManager.shared.fetchData { result in
+            switch result {
+            case .success(let tasks):
+                self.tasks = tasks
+            case .failure(let error):
+                print(error.localizedDescription)
             }
-            
-        } catch let error {
-            print(error.localizedDescription)
         }
     }
     
-    func createTask(name: String) {
-        let newTask = List(context: context)
-        newTask.title = name
-        do {
-            try context.save()
-            getAllTasks()
-        } catch let error {
-            print(error.localizedDescription)
-        }
-    }
-    func deleteTask(item: List) {
-        context.delete(item)
-        do {
-            try context.save()
-        } catch let error {
-            print(error.localizedDescription)
-        }
-    }
-    
-    func updateTask(item: List, newName: String) {
-        item.title = newName
-        do {
-            try context.save()
-            getAllTasks()
-        } catch let error {
-            print(error.localizedDescription)
+    private func saveTask(task: String) {
+        CoreDataManager.shared.saveData(title: task) { task in
+            self.tasks.append(task)
+            self.tableView.insertRows(at: [IndexPath(row: self.tasks.count - 1, section: 0)], with: .automatic)
         }
     }
 }

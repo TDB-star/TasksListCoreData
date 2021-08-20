@@ -17,7 +17,6 @@
 		5D77FFAC26CD64FB00083845 /* ExtentionsUItableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D77FFAB26CD64FB00083845 /* ExtentionsUItableViewController.swift */; };
 		5D77FFAF26CD68CA00083845 /* List+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D77FFAD26CD68CA00083845 /* List+CoreDataClass.swift */; };
 		5D77FFB026CD68CA00083845 /* List+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D77FFAE26CD68CA00083845 /* List+CoreDataProperties.swift */; };
-		5D77FFB226CD69DC00083845 /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D77FFB126CD69DC00083845 /* ListViewModel.swift */; };
 		5D77FFB426CD6AB400083845 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D77FFB326CD6AB400083845 /* CoreDataManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -34,7 +33,6 @@
 		5D77FFAB26CD64FB00083845 /* ExtentionsUItableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtentionsUItableViewController.swift; sourceTree = "<group>"; };
 		5D77FFAD26CD68CA00083845 /* List+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "List+CoreDataClass.swift"; sourceTree = "<group>"; };
 		5D77FFAE26CD68CA00083845 /* List+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "List+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		5D77FFB126CD69DC00083845 /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
 		5D77FFB326CD6AB400083845 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -72,7 +70,6 @@
 				5D77FF9426CD605000083845 /* SceneDelegate.swift */,
 				5D77FFA926CD61C600083845 /* TasksTableViewController.swift */,
 				5D77FFB326CD6AB400083845 /* CoreDataManager.swift */,
-				5D77FFB126CD69DC00083845 /* ListViewModel.swift */,
 				5D77FFAB26CD64FB00083845 /* ExtentionsUItableViewController.swift */,
 				5D77FF9826CD605000083845 /* Main.storyboard */,
 				5D77FFA026CD605100083845 /* LaunchScreen.storyboard */,
@@ -162,7 +159,6 @@
 				5D77FF9526CD605000083845 /* SceneDelegate.swift in Sources */,
 				5D77FFB026CD68CA00083845 /* List+CoreDataProperties.swift in Sources */,
 				5D77FFB426CD6AB400083845 /* CoreDataManager.swift in Sources */,
-				5D77FFB226CD69DC00083845 /* ListViewModel.swift in Sources */,
 				5D77FF9D26CD605000083845 /* TasksListCoreData.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
