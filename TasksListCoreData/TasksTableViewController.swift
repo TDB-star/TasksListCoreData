@@ -51,6 +51,7 @@ class TasksTableViewController: UITableViewController {
            
         }
     }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let task = tasks[indexPath.row]
@@ -59,8 +60,7 @@ class TasksTableViewController: UITableViewController {
             tableView.reloadRows(at: [indexPath], with: .automatic)
         }
     }
-   
-
+    
    private func getAllTasks() {
         CoreDataManager.shared.fetchData { result in
             switch result {
